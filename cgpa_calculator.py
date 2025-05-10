@@ -11,9 +11,9 @@ def calculate_cgpa(sgpas, credits_used):
 def required_sgpa_for_target(sgpas, target_cgpa):
     credits_upto_5 = credits[:5]
     total_weighted_upto_5 = sum(s * c for s, c in zip(sgpas, credits_upto_5))
-    total_credits_upto_5 = sum(credits_upto_5)
+    total_credits_upto_5 = 116
 
-    total_credits_with_6 = total_credits_upto_5 + credits[5]
+    total_credits_with_6 = 140
     total_required_weighted = target_cgpa * total_credits_with_6
     required_weighted_sem6 = total_required_weighted - total_weighted_upto_5
     required_sgpa_sem6 = required_weighted_sem6 / credits[5]

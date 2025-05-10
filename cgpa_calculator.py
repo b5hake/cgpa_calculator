@@ -1,4 +1,4 @@
-# CGPA Calculator in Terminal
+import streamlit as st
 
 # Fixed credits for semesters 1–6
 credits = [20, 20, 26, 26, 24, 24]
@@ -20,39 +20,24 @@ def required_sgpa_for_target(sgpas, target_cgpa):
 
     return required_sgpa_sem6
 
-# --- Input Section ---
-print("🎓 CGPA Calculator")
-print("Enter your SGPA for Semesters 1 to 5:")
+st.title(" CCGPA Calculator for University of Calcutta CBCS Sem V Students")
 
+st.header("Step 1: Enter SGPA for Semesters 1 to 5")
 sgpas_upto_5 = []
 for i in range(5):
-    while True:
-        try:
-            sgpa = float(input(f"Semester {i+1} SGPA: "))
-            if 0 <= sgpa <= 10:
-                sgpas_upto_5.append(sgpa)
-                break
-            else:
-                print("Please enter a valid SGPA between 0 and 10.")
-        except ValueError:
-            print("Invalid input. Please enter a number.")
+    sgpa = st.number_input(f"Semester {i+1} SGPA", min_value=0.0, max_value=10.0, step=0.01)
+    sgpas_upto_5.append(sgpa)
 
-# Calculate CGPA up to semester 5
-cgpa_5 = calculate_cgpa(sgpas_upto_5, credits[:5])
-print(f"\n✅ Your CGPA till Semester 5 is: {round(cgpa_5, 2)}")
+if all(s > 0 for s in sgpas_upto_5):
+    cgpa_5 = calculate_cgpa(sgpas_upto_5, credits[:5])
+    st.success(f"✅ Your CGPA till Semester 5 is: **{round(cgpa_5, 2)}**")
 
-# Predict required SGPA in sem 6
-while True:
-    try:
-        desired_cgpa = float(input("\n🎯 Enter your desired final CGPA after Semester 6: "))
-        break
-    except ValueError:
-        print("Please enter a number.")
+    st.header("Step 2: Plan Your Semester 6")
+    target_cgpa = st.number_input("🎯 Desired final CGPA after Semester 6", min_value=0.0, max_value=10.0, step=0.01)
 
-required_sgpa = required_sgpa_for_target(sgpas_upto_5, desired_cgpa)
-
-if 0 <= required_sgpa <= 10:
-    print(f"📈 You need an SGPA of {round(required_sgpa, 2)} in Semester 6 to reach a CGPA of {desired_cgpa}")
-else:
-    print("⚠️ That CGPA isn't possible with a valid SGPA (must be between 0 and 10)")
-
+    if target_cgpa > 0:
+        required_sgpa = required_sgpa_for_target(sgpas_upto_5, target_cgpa)
+        if 0 <= required_sgpa <= 10:
+            st.info(f"You need an SGPA of **{round(required_sgpa, 2)}** in Semester 6 to reach a CGPA of **{target_cgpa}**.")
+        else:
+            st.warning("❌ That CGPA is not possible with a valid SGPA (must be between 0 and 10).")

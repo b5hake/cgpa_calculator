@@ -20,7 +20,7 @@ def required_sgpa_for_target(sgpas, target_cgpa):
 
     return required_sgpa_sem6
 
-st.title(" CCGPA Calculator for University of Calcutta CBCS Sem V Students")
+st.title("CGPA Calculator for University of Calcutta CBCS Sem V Students")
 
 st.header("Step 1: Enter SGPA for Semesters 1 to 5")
 sgpas_upto_5 = []
@@ -38,6 +38,6 @@ if all(s > 0 for s in sgpas_upto_5):
     if target_cgpa > 0:
         required_sgpa = required_sgpa_for_target(sgpas_upto_5, target_cgpa)
         if 0 <= required_sgpa <= 10:
-            st.info(f"You need an SGPA of **{round(required_sgpa, 2)}** in Semester 6 to reach a CGPA of **{target_cgpa}**.")
+            st.info(f"You need an SGPA of **{round(required_sgpa, 4)}** in Semester 6 to reach a CGPA of **{target_cgpa}**.")
         else:
             st.warning("❌ That CGPA is not possible with a valid SGPA (must be between 0 and 10).")

@@ -25,7 +25,7 @@ st.title(" CCGPA Calculator for University of Calcutta CBCS Sem V Students")
 st.header("Step 1: Enter SGPA for Semesters 1 to 5")
 sgpas_upto_5 = []
 for i in range(5):
-    sgpa = st.number_input(f"Semester {i+1} SGPA", min_value=0.0, max_value=10.0, step=0.01)
+    sgpa = st.number_input(f"Semester {i+1} SGPA", min_value=0.0, max_value=10.0, step=0.001)
     sgpas_upto_5.append(sgpa)
 
 if all(s > 0 for s in sgpas_upto_5):
@@ -33,7 +33,7 @@ if all(s > 0 for s in sgpas_upto_5):
     st.success(f"✅ Your CGPA till Semester 5 is: **{round(cgpa_5, 2)}**")
 
     st.header("Step 2: Plan Your Semester 6")
-    target_cgpa = st.number_input("🎯 Desired final CGPA after Semester 6", min_value=0.0, max_value=10.0, step=0.01)
+    target_cgpa = st.number_input("🎯 Desired final CGPA after Semester 6", min_value=0.0, max_value=10.0, step=0.001)
 
     if target_cgpa > 0:
         required_sgpa = required_sgpa_for_target(sgpas_upto_5, target_cgpa)
